@@ -20,6 +20,7 @@
 					<th>글쓴이</th>
 					<th>작성일</th>
 				</tr>
+					<a class="btn btn-secondary" href="/add">글쓰기</a>
 			</thead>
 			<tbody>
 				<c:forEach items="${boardList }" var="list">

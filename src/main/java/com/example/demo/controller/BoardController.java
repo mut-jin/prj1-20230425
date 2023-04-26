@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.*;
 
 import com.example.demo.domain.*;
+import com.example.demo.mapper.*;
 import com.example.demo.service.*;
 
 @Controller
@@ -79,6 +80,30 @@ public class BoardController {
 		} else {
 			rttr.addAttribute("fail", "fail");
 			return "redirect:/id/" + id;
+		}
+	}
+	
+	// 인서트 기능 내맘대로 추가
+	// 연습해보자!!
+	
+	@GetMapping("/add")
+	public String addForm(Model model) {
+		// 게시물 작성 form (view)로 포워드
+		Board board = service.getBoard();
+		
+		model.addAttribute("board", board);
+		return "/addForm";
+	}
+	
+	@PostMapping("insert/{id}")
+	public String addProcess(@RequestParam Integer id) {
+		// 새 게시물 db에 추가
+		boolean ok = service.add(id);
+		if (ok) {
+			// 해당 게시물 추가
+			return "redirect:/list";
+		} else {
+			return "redirect:/add/";
 		}
 	}
 }

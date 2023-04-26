@@ -35,5 +35,17 @@ public class BoardService {
 		int cnt = mapper.deleteById(id);
 		return cnt == 1;
 	}
+
+	public Board getBoard() {
+		Board board = new Board();
+		return board;
+	}
+	
+	public boolean add(Integer id) {
+		int cnt = mapper.addById(id);
+		return cnt == 1;
+	}
+	
+
 	
 }
