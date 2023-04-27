@@ -40,9 +40,10 @@ public class BoardService {
 		Board board = new Board();
 		return board;
 	}
-	
-	public boolean add(Integer id) {
-		int cnt = mapper.addById(id);
+
+	public boolean addBoard(Board board) {
+		int cnt = mapper.insert(board);
+
 		return cnt == 1;
 	}
 	
