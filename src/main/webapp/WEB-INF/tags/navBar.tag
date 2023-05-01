@@ -21,7 +21,7 @@
 			</ul>
 			<form action="/list" class="d-flex" role="search">
 				
-				<select name="type" id="">
+				<select name="type" class="form-select" id="">
 					<option value="all" >전체</option>
 					<option value="title" ${param.type eq 'title' ? 'selected' : '' }>제목</option>
 					<option value="body" ${param.type eq 'body' ? 'selected' : '' }>본문</option>
