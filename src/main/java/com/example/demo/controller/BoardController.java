@@ -26,11 +26,14 @@ public class BoardController {
 	@GetMapping({ "/", "list" })
 	public String list(Model model,
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
-			@RequestParam(value = "search", defaultValue = "") String search) {
+			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "body", required = false) String body,
+			@RequestParam(value = "writer", required = false) String writer) {
 		// 1. request param 수집/가공
 		// 2. business logic 처리
 		// List<Board> list = service.listBoard(); // 페이지 처리 전
-		Map<String, Object> result = service.listBoard(page, search); // 페이지 처리
+		Map<String, Object> result = service.listBoard(page, search, type, body, writer); // 페이지 처리
 		
 		// 3. add attribute
 //		model.addAttribute("boardList", result.get("boardList"));

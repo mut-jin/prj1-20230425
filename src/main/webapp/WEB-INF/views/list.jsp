@@ -55,6 +55,9 @@
 							<c:if test="${not empty param.search }">
 								<c:param name="search" value="${param.search }"/>
 							</c:if>
+							<c:if test="${not empty param.type }">
+								<c:param name="type" value="${param.type }"></c:param>
+							</c:if>
 						</c:url>
 						<li class="page-item">
 							<a class="page-link" href="${pageLink }">
@@ -68,6 +71,9 @@
 							<c:param name="page" value="${pageInfo.currentPageNum - 1 }" />
 							<c:if test="${not empty param.search }">
 								<c:param name="search" value="${param.search }"/>
+							</c:if>
+							<c:if test="${not empty param.type }">
+								<c:param name="type" value="${param.type }"></c:param>
 							</c:if>
 						</c:url>
 						<li class="page-item">
@@ -83,6 +89,9 @@
 							<c:if test="${not empty param.search }">
 								<c:param name="search" value="${param.search }" />
 							</c:if>
+							<c:if test="${not empty param.type }">
+								<c:param name="type" value="${param.type }"></c:param>
+							</c:if>
 						</c:url>
 						<li class="page-item">
 							<a class="page-link ${pageNum eq pageInfo.currentPageNum ? 'active' : '' }" href="${pageLink }">${pageNum }</a>
@@ -95,6 +104,9 @@
 							<c:param name="page" value="${pageInfo.currentPageNum + 1 }" />
 							<c:if test="${not empty param.search }">
 								<c:param name="search" value="${param.search }"/>
+							</c:if>
+							<c:if test="${not empty param.type }">
+								<c:param name="type" value="${param.type }"></c:param>
 							</c:if>
 						</c:url>
 						<li class="page-item">
@@ -109,6 +121,9 @@
 							<c:param name="page" value="${pageInfo.lastPageNum }" />
 							<c:if test="${not empty param.search }">
 								<c:param name="search" value="${param.search }"/>
+							</c:if>
+							<c:if test="${not empty param.type }">
+								<c:param name="type" value="${param.type }"></c:param>
 							</c:if>
 						</c:url>
 						<li class="page-item">
