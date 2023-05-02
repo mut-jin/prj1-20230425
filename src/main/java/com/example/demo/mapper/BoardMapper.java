@@ -21,15 +21,22 @@ public interface BoardMapper {
 	List<Board> selectAll();
 
 	@Select("""
-			SELECT *
-			FROM Board
-			WHERE id = #{id}
+			SELECT 
+				b.id,
+				b.title,
+				b.body,
+				b.inserted,
+				b.writer,
+				f.fileName
+			FROM Board b LEFT JOIN FileName f ON b.id = f.boardId
+			WHERE b.id = #{id}
 			""")
+	@ResultMap("boardResultMap")
 	Board selectById(Integer id);
 
 	@Update("""
 			UPDATE Board
-			SET
+			SET 
 				title = #{title},
 				body = #{body},
 				writer = #{writer}
@@ -43,7 +50,7 @@ public interface BoardMapper {
 			WHERE id = #{id}
 			""")
 	int deleteById(Integer id);
-	
+
 	@Insert("""
 			INSERT INTO Board (title, body, writer)
 			VALUES (#{title}, #{body}, #{writer})
@@ -53,48 +60,67 @@ public interface BoardMapper {
 
 	@Select("""
 			<script>
-			<bind name="p" value="'%' + search + '%'" />
+			<bind name="pattern" value="'%' + search + '%'" />
 			SELECT
-				id,
-				title,
-				body,
-				writer,
-				inserted
-			FROM Board
+				b.id,
+				b.title,
+				b.writer,
+				b.inserted,
+				COUNT(f.id) fileCount
+			FROM Board b LEFT JOIN FileName f ON b.id = f.boardId
+			
 			<where>
-			<if test="(type eq 'title') or (type eq 'all') ">
-				title LIKE #{p}
-			</if>
-			<if test="(type eq 'body') or (type eq 'all') ">
-			 	OR body LIKE #{p}
-			</if>
-			<if test="(type eq 'writer') or (type eq 'all')">
-				OR writer LIKE #{p}
-			</if>
+				<if test="(type eq 'all') or (type eq 'title')">
+				   title  LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'body')">
+				OR body   LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'writer')">
+				OR writer LIKE #{pattern}
+				</if>
 			</where>
-			ORDER BY id DESC
+			
+			GROUP BY b.id
+			ORDER BY b.id DESC
 			LIMIT #{startIndex}, #{rowPerPage}
 			</script>
 			""")
-	List<Board> selectAllPaging(Integer startIndex, Integer rowPerPage, String search, String type, String body, String writer);
+	List<Board> selectAllPaging(Integer startIndex, Integer rowPerPage, String search, String type);
 
 	@Select("""
 			<script>
-			<bind name="p" value="'%' + search + '%'" />
+			<bind name="pattern" value="'%' + search + '%'" />
 			SELECT COUNT(*) 
 			FROM Board
+			
 			<where>
-				<if test="(type eq 'title') or (type eq 'all') ">
-					title LIKE #{p}
+				<if test="(type eq 'all') or (type eq 'title')">
+				   title  LIKE #{pattern}
 				</if>
-				<if test="(type eq 'body') or (type eq 'all') ">
-				 	OR body LIKE #{p}
+				<if test="(type eq 'all') or (type eq 'body')">
+				OR body   LIKE #{pattern}
 				</if>
-				<if test="(type eq 'writer') or (type eq 'all')">
-					OR writer LIKE #{p}
+				<if test="(type eq 'all') or (type eq 'writer')">
+				OR writer LIKE #{pattern}
 				</if>
 			</where>
+			
 			</script>
 			""")
 	Integer countAll(String search, String type);
+
+	@Insert("""
+			INSERT INTO FileName (boardId, fileName)
+			VALUES (#{boardId}, #{fileName})
+			""")
+	Integer insertFileName(Integer boardId, String fileName);
+	
+
+	
 }
+
+
+
+
+

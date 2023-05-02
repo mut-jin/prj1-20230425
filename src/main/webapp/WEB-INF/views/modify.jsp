@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,35 +12,53 @@
 </head>
 <body>
 
-	<my:navBar />
+	<my:navBar></my:navBar>
+	
 	<my:alert></my:alert>
 
 	<div class="container-lg">
-		<h1>${board.id } 게시물 수정</h1>
-		<form method="post">
-			<input type="hidden" name="id" value="${board.id }"/>
-			<div class="mb-3">
-				<label for="titleInput" class="form-label">제목</label>
-				<input class="form-control" id="titleInput" type="text" name="title" value="${board.title }" />
+
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-8 col-lg-6">
+
+
+				<h1>${board.id }번 게시물 수정</h1>
+				<form method="post">
+					<input type="hidden" name="id" value="${board.id }" />
+					<div class="mb-3">
+						<label for="titleInput" class="form-label">제목</label>
+						<input class="form-control" id="titleInput" type="text" name="title" value="${board.title }" />
+					</div>
+					<div class="mb-3">
+						<label for="bodyTextarea" class="form-label">본문</label>
+						<textarea class="form-control" id="bodyTextarea" rows="10" name="body">${board.body }</textarea>
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="writerInput">작성자</label>
+						<input class="form-control" id="writerInput" type="text" name="writer" value="${board.writer }" />
+					</div>
+					<div class="mb-3">
+						<label for="" class="form-label">작성일시</label>
+						<input class="form-control" type="text" value="${board.inserted }" readonly />
+					</div>
+					<div class="mb-3">
+						<input class="btn btn-secondary" type="submit" value="수정" />
+					</div>
+				</form>
 			</div>
-			<div class="mb-3">
-				<label for="bodyTextarea" class="form-label">본문</label>
-				<textarea class="form-control" id="bodyTextarea" rows="10" name="body">${board.body }</textarea>
-			</div>
-			<div class="mb-3">
-				<label for="writerInput" class="form-label">작성자</label>
-				<input class="form-control" type="text" name="writer" value="${board.writer }" />
-			</div>
-			<div class="mb-3">
-				<label for="" class="form-label">작성일시</label>
-				<input class="form-control" type="text" value="${board.inserted }" readonly/>
-			</div>
-			<div class="mb-3">
-				<input class="btn btn-secondary" type="submit" value="수정" />
-			</div>
-		</form>
+		</div>
 	</div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
