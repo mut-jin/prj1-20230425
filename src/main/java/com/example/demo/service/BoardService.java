@@ -11,9 +11,17 @@ import org.springframework.web.multipart.*;
 import com.example.demo.domain.*;
 import com.example.demo.mapper.*;
 
+import software.amazon.awssdk.services.s3.*;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class BoardService {
+	
+	@Autowired
+	private S3Client s3;
+	
+	@Value("${aws.s3.bucketName}")
+	private String bucketName;
 
 	@Autowired
 	private BoardMapper mapper;
@@ -27,13 +35,70 @@ public class BoardService {
 		return mapper.selectById(id);
 	}
 
-	public boolean modify(Board board) {
+	public boolean modify(Board board, MultipartFile[] addFiles, List<String> removeFileNames) throws Exception {
+		
+		// FileName 테이블 삭제
+		if(removeFileNames != null && !removeFileNames.isEmpty()) {			
+			for(String fileName : removeFileNames) {
+				// 하드디스크에서 삭제
+				String path = "C:\\study\\upload\\" + board.getId() + "\\" + fileName;
+				File file = new File(path);
+				if (file.exists()) {
+					file.delete();
+				}
+				// 테이블에서 삭제
+				mapper.deleteFileNameByBoardIdAndFileName(board.getId(), fileName);
+			}
+		}
+		
+		// 새 파일 추가
+		for (MultipartFile newFile : addFiles) {
+			if(newFile.getSize() > 0) {
+				// 테이블에 파일명 추가
+				mapper.insertFileName(board.getId(), newFile.getOriginalFilename());
+				
+				String fileName = newFile.getOriginalFilename();
+				String folder = "C:\\study\\upload\\" + board.getId();
+				String path = folder + "\\" + fileName;
+				
+				// 디렉토리 없으면 만들기
+				File dir = new File(folder);
+				if(!dir.exists()) {
+					dir.mkdirs();
+				}
+				
+				// 파일을 하드디스크에 저장
+				File file = new File(path);
+				newFile.transferTo(file);
+			}
+		}
+		
+		
+		// 게시물 (board) 테이블 수정
 		int cnt = mapper.update(board);
 
 		return cnt == 1;
 	}
 
 	public boolean remove(Integer id) {
+		
+		// 파일명 조회
+		List<String> fileNames = mapper.selectFileNameByBoardId(id);
+		
+		// FileName 테이블의 데이터 지우기
+		mapper.deleteFileNameByBoardId(id);
+		
+		// 하드디스크의 파일 지우기
+		for (String fileName : fileNames) {
+			String path = "C:\\study\\upload\\" + id + "\\" + fileName;
+			File file = new File(path);
+			if (file.exists()) {
+				file.delete();
+			}
+		}
+		
+		// 게시물 테이블의 데이터 지우기
+		
 		int cnt = mapper.deleteById(id);
 		return cnt == 1;
 	}
