@@ -20,7 +20,7 @@
 		<!-- .row.justify-content-center>.col-12.col-md-8.col-lg-6 -->
 		<div class="row justify-content-center">
 			<div class="col-12 col-md-8 col-lg-6">
-				<h1>${board.id }번게시물</h1>
+				<h1 style="font-family: Impact, Charcoal, sans-serif">${board.id }</h1>
 				<div class="mb-3">
 					<label for="" class="form-label">제목</label>
 					<input type="text" class="form-control" value="${board.title }" readonly />
@@ -30,9 +30,6 @@
 				<div class="mb-3">
 					<c:forEach items="${board.fileName }" var="fileName" >
 						<div class="mb-3">
-							<%-- http://localhost:8080/image/4122/slamdunk.jfif --%>
-							<%-- http://localhost:8080/image/게시물번호/fileName --%>
-							<c:set var="bucketUrl" value="https://bucket0503-mason.s3.ap-northeast-2.amazonaws.com/board"></c:set>
 							<img class="img-thumbnail img-fluid" src="${bucketUrl }/${board.id }/${fileName}" alt="" />
 						</div>
 					</c:forEach>

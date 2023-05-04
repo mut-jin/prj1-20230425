@@ -17,15 +17,16 @@
 	<my:alert></my:alert>
 
 	<div class="container-lg">
-		<h1>게시물 목록</h1>
+		<h1 style="font-family: Impact, Charcoal, sans-serif">LIST</h1>
 		<!-- table.table>thead>tr>th*4^^tbody -->
+		<!-- 새로작성된 코드 변경된 코드!!! -->
 		<table class="table">
 			<thead>
 				<tr>
-					<th>최신순</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일시</th>
+					<th>#</th>
+					<th>TITLE</th>
+					<th>WRITER</th>
+					<th>DATE</th>
 				</tr>
 			</thead>
 			<tbody>

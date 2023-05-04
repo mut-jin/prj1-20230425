@@ -18,6 +18,8 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link ${current eq 'list' ? 'active' : '' }" style="color: white" href="/list">목록</a></li>
 				<li class="nav-item"><a class="nav-link ${current eq 'add' ? 'active' : '' }" style="color: white" href="/add">글쓰기</a></li>
+				<li class="nav-item"><a class="nav-link ${current eq 'signup' ? 'active' : '' }" style="color: white" href="/member/signup">회원가입</a></li>
+				<li class="nav-item"><a class="nav-link ${current eq 'memberList' ? 'active' : '' }" style="color: white" href="/member/list">회원목록</a></li>
 			</ul>
 			<form action="/list" class="d-flex" role="search">
 				
