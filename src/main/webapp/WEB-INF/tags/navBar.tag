@@ -24,7 +24,7 @@
 			<form action="/list" class="d-flex" role="search">
 				
 				<div class="input-group">
-					<select name="type" class="form-select flex-grow-0" style="width: 100px" id="">
+					<select class="form-select flex-grow-0" style="width: 100px;" name="type" id="">
 						<option value="all" >전체</option>
 						<option value="title" ${param.type eq 'title' ? 'selected' : '' }>제목</option>
 						<option value="body" ${param.type eq 'body' ? 'selected' : '' }>본문</option>
