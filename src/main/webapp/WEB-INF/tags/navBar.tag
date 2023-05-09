@@ -1,6 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="current" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div style="margin-bottom:80px"></div>
 <nav class="navbar navbar-expand-lg bg-primary mb-5 fixed-top" data-bs-theme="bright">
@@ -17,9 +18,21 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link ${current eq 'list' ? 'active' : '' }" style="color: white" href="/list">목록</a></li>
-				<li class="nav-item"><a class="nav-link ${current eq 'add' ? 'active' : '' }" style="color: white" href="/add">글쓰기</a></li>
-				<li class="nav-item"><a class="nav-link ${current eq 'signup' ? 'active' : '' }" style="color: white" href="/member/signup">회원가입</a></li>
-				<li class="nav-item"><a class="nav-link ${current eq 'memberList' ? 'active' : '' }" style="color: white" href="/member/list">회원목록</a></li>
+				<sec:authorize access="isAuthenticated()">
+					<li class="nav-item"><a class="nav-link ${current eq 'add' ? 'active' : '' }" style="color: white" href="/add">글쓰기</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAnonymous()">
+					<li class="nav-item"><a class="nav-link ${current eq 'signup' ? 'active' : '' }" style="color: white" href="/member/signup">회원가입</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<li class="nav-item"><a class="nav-link ${current eq 'memberList' ? 'active' : '' }" style="color: white" href="/member/list">회원목록</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAnonymous()">
+					<li class="nav-item"><a class="nav-link ${current eq 'login' ? 'active' : '' }" style="color: white" href="/member/login">로그인</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<li class="nav-item"><a class="nav-link" style="color: white" href="/member/logout">로그아웃</a></li>
+				</sec:authorize>
 			</ul>
 			<form action="/list" class="d-flex" role="search">
 				
@@ -41,3 +54,13 @@
 		</div>
 	</div>
 </nav>
+
+<div>
+	<sec:authentication property="principal"/>
+</div>
+
+
+
+
+
+

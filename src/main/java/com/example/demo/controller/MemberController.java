@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,18 @@ public class MemberController {
 	private MemberService service;
 
 	@GetMapping("signup")
+	@PreAuthorize("isAnonymous()")
 	public void signupForm() {
 
 	}
+	
+	@GetMapping("login")
+	public void loginForm() {
+		
+	}
 
 	@PostMapping("signup")
+	@PreAuthorize("isAnonymous()")
 	public String signupProcess(Member member, RedirectAttributes rttr) {
 
 		try {
@@ -46,12 +54,14 @@ public class MemberController {
 	
 	// 경로 : /member/info?id=asdf
 	@GetMapping("info")
+	@PreAuthorize("isAuthenticated()")
 	public void info(String id, Model model) {
 		Member member = service.get(id);
 		model.addAttribute("member", member);
 	}
 	
 	@PostMapping("remove")
+	@PreAuthorize("isAuthenticated()")
 	public String remove(Member member, RedirectAttributes rttr) {
 		
 		boolean ok = service.remove(member);
@@ -67,6 +77,7 @@ public class MemberController {
 	
 	// 1.
 	@GetMapping("modify")
+	@PreAuthorize("isAuthenticated()")
 	public void method(String id, Model model) {
 		Member member = service.get(id);
 		model.addAttribute("member", member);
@@ -75,6 +86,7 @@ public class MemberController {
 	
 	// 2.
 	@PostMapping("modify")
+	@PreAuthorize("isAuthenticated()")
 	public String modifyProcess(Member member, String oldPassword, RedirectAttributes rttr) {
 		boolean ok = service.modify(member, oldPassword);
 		

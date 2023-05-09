@@ -2,10 +2,13 @@ package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.*;
+import org.springframework.security.config.*;
+import org.springframework.security.config.annotation.method.configuration.*;
 import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.security.web.*;
+import org.springframework.security.web.access.expression.*;
 
 import jakarta.annotation.*;
 import jakarta.servlet.*;
@@ -14,6 +17,7 @@ import software.amazon.awssdk.regions.*;
 import software.amazon.awssdk.services.s3.*;
 
 @Configuration
+@EnableMethodSecurity
 public class CustomConfiguration {
 	
 	@Value("${aws.accessKeyId}")
@@ -39,6 +43,29 @@ public class CustomConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable();
+		
+//		http.formLogin(Customizer.withDefaults()); 기본
+		http.formLogin().loginPage("/member/login");
+		http.logout().logoutUrl("/member/logout");
+		
+		// 접근할 수 있는 권한 설정
+		// spring security expression 검색해서 api 확인해보기
+//		http.authorizeHttpRequests().requestMatchers("/add").authenticated();
+//		http.authorizeHttpRequests().requestMatchers("/member/signup").anonymous();
+//		http.authorizeHttpRequests().requestMatchers("**").permitAll();
+		
+//		http.authorizeHttpRequests()
+//		.requestMatchers("/add")
+//		.access(new WebExpressionAuthorizationManager("isAuthenticated()"));
+//		http.authorizeHttpRequests()
+//			.requestMatchers("/member/signup")
+//			.access(new WebExpressionAuthorizationManager("isAnonymous()"));
+//		http.authorizeHttpRequests()
+//			.requestMatchers("/**")
+//			.access(new WebExpressionAuthorizationManager("permitAll"));
+		
+		
+		
 		return http.build();
 	}
 	
