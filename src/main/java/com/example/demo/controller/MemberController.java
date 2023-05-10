@@ -57,7 +57,7 @@ public class MemberController {
 	
 	// 경로 : /member/info?id=asdf
 	@GetMapping("info")
-	@PreAuthorize("(isAuthenticated()) and (authentication.name eq #id)")
+	@PreAuthorize("hasAuthority('admin') or (isAuthenticated()) and (authentication.name eq #id)")
 	public void info(String id, Model model) {
 		Member member = service.get(id);
 		model.addAttribute("member", member);
@@ -107,6 +107,7 @@ public class MemberController {
 			return "redirect:/member/modify?id=" + member.getId();
 		}
 	}
+	
 }
 
 

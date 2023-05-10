@@ -58,10 +58,6 @@
 	</div>
 </nav>
 
-<div>
-	<sec:authentication property="principal"/>
-</div>
-
 
 
 
