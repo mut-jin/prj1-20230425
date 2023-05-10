@@ -48,6 +48,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("list")
+	@PreAuthorize("hasAuthority('admin')")
 	public void list(Model model) {
 		
 		List<Member> list = service.listMember();
