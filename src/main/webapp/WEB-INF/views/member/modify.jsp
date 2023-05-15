@@ -34,7 +34,7 @@
 
 					<div class="mb-3">
 						<label class="form-label" for="inputPasswordCheck"> 패스워드 확인 </label>
-						<input id="inputPasswordCheck" class="form-control" type="text" value="" />
+						<input id="inputPasswordCheck" class="form-control" type="text" value="" name="name" />
 						<div id="passwordSuccessText" class="d-none form-text text-primary">
 							<i class="fa-solid fa-check"></i>
 							패스워드가 일치 합니다.
@@ -47,15 +47,38 @@
 					</div>
 
 					<div class="mb-3">
-						<label class="form-label" for="inputNickName"> 별명 </label>
+						<label class="form-label" for="inputNickName"> 닉네임 </label>
 						<input id="inputNickName" class="form-control" type="text" name="nickName" value="${member.nickName }" />
+						
+						<div class="d-none form-text text-primary" id="availableNickNameMessage">
+								<i class="fa-solid fa-check"></i>
+								사용가능한 닉네임입니다.
+						</div>
+						<div class="d-none form-text text-danger" id="notAvailableNickNameMessage">
+								<i class="fa-solid fa-triangle-exclamation"></i>
+								사용 불가능한 닉네임입니다.
+						</div>
+						
+						<button type="button" id="checkNickNameBtn">중복확인</button>
 					</div>
+					
 					<div class="mb-3">
 						<label class="form-label" for="inputEmail"> 이메일 </label>
 						<input id="inputEmail" class="form-control" type="email" name="email" value="${member.email }" />
+						
+							<div class="d-none form-text text-primary" id="availableEmailMessage">
+								<i class="fa-solid fa-check"></i>
+								사용가능한 Email입니다.
+							</div>
+							<div class="d-none form-text text-danger" id="notAvailableEmailMessage">
+								<i class="fa-solid fa-triangle-exclamation"></i>
+								사용 불가능한 Email입니다.
+							</div>
+							
+							<button type="button" id="checkEmailBtn">중복확인</button>
 					</div>
 
-					<button id="modifyButton" type="button" data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn btn-primary">수정</button>
+					<button id="modifyButton" type="button" data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn btn-primary" disabled>수정</button>
 				</form>
 
 			</div>

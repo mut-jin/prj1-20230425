@@ -27,8 +27,14 @@
 							<label for="inputId" class="form-label">아이디</label>
 							<input id="inputId" type="text" class="form-control" name="id" value="${member.id }"/>
 							
-							<div id="availableIdMessage">사용가능한 ID입니다.</div>
-							<div id="notAvailableIdMessage">사용 불가능한 ID입니다.</div>
+							<div class="d-none form-text text-primary" id="availableIdMessage">
+								<i class="fa-solid fa-check"></i>
+								사용가능한 ID입니다.
+							</div>
+							<div class="d-none form-text text-danger" id="notAvailableIdMessage">
+								<i class="fa-solid fa-triangle-exclamation"></i>
+								사용 불가능한 ID입니다.
+							</div>
 							
 							<button type="button" id="checkIdBtn">중복확인</button>
 							
@@ -53,15 +59,39 @@
 							
 						</div>
 						<div class="mb-3">
-							<label for="inputNickName" class="form-label">별명</label>
-							<input id="inputNicName" type="text" class="form-control" name="nickName" value="${member.nickName }"/>
+							<label for="inputNickName" class="form-label">닉네임</label>
+							<input id="inputNickName" type="text" class="form-control" name="nickName" value="${member.nickName }"/>
+							
+							<div class="d-none form-text text-primary" id="availableNickNameMessage">
+								<i class="fa-solid fa-check"></i>
+								사용가능한 닉네임입니다.
+							</div>
+							<div class="d-none form-text text-danger" id="notAvailableNickNameMessage">
+								<i class="fa-solid fa-triangle-exclamation"></i>
+								사용 불가능한 닉네임입니다.
+							</div>
+							
+							<button type="button" id="checkNickNameBtn">중복확인</button>
+							
 						</div>
 						<div class="mb-3">
 							<label for="inputEmail" class="form-label">이메일</label>
 							<input id="inputEmail" type="email" class="form-control" name="email" value="${member.email }" />
+							
+							<div class="d-none form-text text-primary" id="availableEmailMessage">
+								<i class="fa-solid fa-check"></i>
+								사용가능한 Email입니다.
+							</div>
+							<div class="d-none form-text text-danger" id="notAvailableEmailMessage">
+								<i class="fa-solid fa-triangle-exclamation"></i>
+								사용 불가능한 Email입니다.
+							</div>
+							
+							<button type="button" id="checkEmailBtn">중복확인</button>
+							
 						</div>
 						<div class="mb-3">
-							<input id="signupSubmit" type="submit" class="btn btn-primary disabled" value="가입" />
+							<input id="signupSubmit" type="submit" class="btn btn-primary" disabled value="가입" />
 						</div>
 					</form>
 			</div>
