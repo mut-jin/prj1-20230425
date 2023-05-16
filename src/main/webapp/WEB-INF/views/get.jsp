@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +15,16 @@
 
 	<my:navBar />
 	<my:alert></my:alert>
+	
+	<!-- toast -->
+	<div class="toast-container top-0 start-50 translate-middle-x p-3">
+		<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body"></div>
+		</div>
+	</div>
 
 	<div class="container-lg">
 
@@ -22,50 +32,41 @@
 		<div class="row justify-content-center">
 			<div class="col-12 col-md-8 col-lg-6">
 				<h1 style="font-family: Impact, Charcoal, sans-serif">${board.id }</h1>
-				
+
 				<h1>
-				<span id="boardIdText">
-					${board.id }
-				</span>
-				번게시물
+					<span id="boardIdText"> ${board.id } </span> 번게시물
 				</h1>
-				
+
 				<div>
 					<h1>
-					<span id="likeIcon">
-						<i class="fa-regular fa-heart" style="color: #c52b2b;"></i>
-					</span>
-					<span id="likeNumber">
-						<%-- ${board.like } --%>
-					</span>
+						<span id="likeIcon"> <i class="fa-regular fa-heart" style="color: #c52b2b;"></i>
+						</span> <span id="likeNumber"> ${board.likeCount }
+						</span>
 					</h1>
 				</div>
-				
+
 				<div class="mb-3">
-					<label for="" class="form-label">제목</label>
-					<input type="text" class="form-control" value="${board.title }" readonly />
+					<label for="" class="form-label">제목</label> <input type="text" class="form-control" value="${board.title }" readonly />
 				</div>
-				
+
 				<!-- 그림 파일 출력 -->
 				<div class="mb-3">
-					<c:forEach items="${board.fileName }" var="fileName" >
+					<c:forEach items="${board.fileName }" var="fileName">
 						<div class="mb-3">
 							<img class="img-thumbnail img-fluid" src="${bucketUrl }/${board.id }/${fileName}" alt="" />
 						</div>
 					</c:forEach>
 				</div>
-				
+
 				<div class="mb-3">
 					<label for="" class="form-label">본문</label>
 					<textarea class="form-control" readonly rows="10">${board.body }</textarea>
 				</div>
 				<div class="mb-3">
-					<label for="" class="form-label">작성자</label>
-					<input type="text" class="form-control" value="${board.writer }" readonly />
+					<label for="" class="form-label">작성자</label> <input type="text" class="form-control" value="${board.writer }" readonly />
 				</div>
 				<div class="mb-3">
-					<label for="" class="form-label">작성일시</label>
-					<input type="text" readonly class="form-control" value="${board.inserted }" />
+					<label for="" class="form-label">작성일시</label> <input type="text" readonly class="form-control" value="${board.inserted }" />
 				</div>
 				<sec:authorize access="isAuthenticated()">
 					<sec:authentication property="name" var="userId" />
@@ -79,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-	<sec:authorize access="isAuthenticated()" >
+	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="name" var="userId" />
 		<c:if test="${userId eq board.writer }">
 			<div class="d-none">
@@ -87,7 +88,7 @@
 					<input id="inputId" type="text" name="id" value="${board.id }" />
 				</form>
 			</div>
-	
+
 			<!-- Modal -->
 			<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -111,7 +112,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<script src="/js/board/like.js"></script>
-	
+
 </body>
 </html>
 
