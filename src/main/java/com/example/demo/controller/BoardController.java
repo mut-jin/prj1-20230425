@@ -40,16 +40,20 @@ public class BoardController {
 //		model.addAttribute("boardList", result.get("boardList"));
 //		model.addAttribute("pageInfo", result.get("pageInfo"));
 		model.addAllAttributes(result);
+		
 
 		// 4. forward/redirect
 		return "list";
 	}
 
 	@GetMapping("/id/{id}")
-	public String board(@PathVariable("id") Integer id, Model model) {
+	public String board(
+			@PathVariable("id") Integer id, 
+			Model model,
+			Authentication authentication) {
 		// 1. request param
 		// 2. business logic
-		Board board = service.getBoard(id);
+		Board board = service.getBoard(id, authentication);
 		// 3. add attribute
 		model.addAttribute("board", board);
 		// 4. forward/redirect
