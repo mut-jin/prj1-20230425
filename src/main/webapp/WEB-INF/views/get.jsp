@@ -17,7 +17,7 @@
 	<my:alert></my:alert>
 	
 	<!-- toast -->
-	<div class="toast-container top-0 start-50 translate-middle-x p-3">
+	<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
 		<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 			<div class="d-flex">
 				<div class="toast-body"></div>
@@ -85,6 +85,25 @@
 						</div>
 					</c:if>
 				</sec:authorize>
+				
+				<div id="addCommentContainer">
+					<h6>입력</h6>
+					<textarea id="commentTextArea"></textarea>
+					<button id="sendCommentBtn">전송</button>
+				</div>
+				<div id="updateCommentContainer">
+					<h6>수정</h6>
+					<input type="hidden" id="commentUpdateIdInput" />
+					<textarea id="commentUpdateTextArea"></textarea>
+					<button id="updateCommentBtn">수정</button>
+				</div>
+				
+				<div id="commentListContainer">
+					<div>댓글1 내용 : 누가 : 언제</div>
+					<div>댓글2 내용 : 누가 : 언제</div>
+					<div>댓글3 내용 : 누가 : 언제</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>
